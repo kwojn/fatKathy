@@ -9,10 +9,38 @@ and open the template in the editor.
         <title>Fat Kathy interpreter</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width">
+        <script type="text/javascript" src="Node.js"></script>
+        <script type="text/javascript" src="Interpreter.js"></script>
+        <script type="text/javascript" src="NodeBuilder.js"></script>
         <script type="text/javascript" src="main.js"></script>
-        <script type="text/javascript" src="nodeBuilder.js"></script>
     </head>
     <body>
-        <div></div>
+        <div style="overflow-y:scroll;width:800px;height:120px;float:r;border:1px solid black;" id="output"></div>
+        <div>
+            <textarea cols="40" rows="20" id="editor">a='1';
+b='1';
+or{'1','1'}='1';
+and{'1','1'}='1';
+and{'1','0'}='0';
+and(a,b);
+c=and(or(and(a,b),b),or(a,'1'));
+cout(c);
+d=and(and('1','1'),or('1','1'));</textarea>
+            <button id="parserStarter">Parse</button>
+            
+        </div>
     </body>
 </html>
+
+<!--
+
+choroba{'swiad','wysypka'}='swierzb';
+choroba{'wysypka','swiad'}='swierzb';
+choroba{'wymioty','temperatura'}='grypa';
+choroba{'temperatura','wymioty'}='grypa';
+choroba{'grypa','swiad'}='sepsa';
+choroba{'swiad','grypa'}='sepsa';
+
+cout(choroba(choroba('wymioty','temperatura'),'swiad'));
+
+-->

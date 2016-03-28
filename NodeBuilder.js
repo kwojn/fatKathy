@@ -1,11 +1,4 @@
-function Node() {
-    this.terminal = "";
-    this.nonTerminal = "";
-    this.patterns = [];
-    this.children = [];
-    this.patternTerminal = "";
-    this.patternResults = [];
-}
+
 /**
  * 
  * @param {Interpreter} interpreter
@@ -79,8 +72,9 @@ function NodeBuilder(interpreter) {
             return nonTerminal;
         }
         var matchedNode= null;
+        console.log(nonTerminal);
+        console.log(nonTerminal.match(/\([\s\w\d\',]+\)/));
         while(( matchedNode = nonTerminal.match(/[\w\s]+\([\s\w\d\',]+\)/))!=null){
-            console.log("EvaluatingExpresion: "+matchedNode);
             matchedNode= matchedNode;
             var terminal = this.processSingleNode(matchedNode[0]);
             nonTerminal  = nonTerminal.replace(matchedNode[0],terminal);
@@ -90,9 +84,9 @@ function NodeBuilder(interpreter) {
     this.buildTree = function() {
         var nodes = this.interpreter.expression.split(";");
         var dontPush = false;
-        console.log("Program Listning:");
+       
         for (x in nodes) {
-            console.log(nodes[x]);
+            
             dontPush = false;
             var node = new Node();
             var splitedNode = nodes[x].split("=");
@@ -113,9 +107,12 @@ function NodeBuilder(interpreter) {
                 var patternElements = patternNode[1].split(",");
                 var patternNode = [];
                 for (x in patternElements) {
-                    patternNode.push(patternElements[x].match(/'[\w\s]'/)[0]);
+                    
+                    patternNode.push(patternElements[x].match(/[\'\w\s]+/)[0]);
                 }
+                
                 node.patterns.push(patternNode);
+               
                 var patternResult = node.nonTerminal;
                 node.patternResults.push(patternResult);
                 node.terminal = newTerminal.replace(" ","");
@@ -127,12 +124,6 @@ function NodeBuilder(interpreter) {
         
     }
 };
-function parseKathy(exp){
-    exp = exp.replace("/[\s]/g","");
-    var i=new Interpreter(exp);
-    var builder = new NodeBuilder(i);
-    builder.buildTree();
-    
-}
+
 //var builder = new NodeBuilder(fatKathy);
 //builder.buildTree();
